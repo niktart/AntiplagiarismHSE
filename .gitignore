@@ -1,0 +1,23 @@
+# .NET build
+bin/
+obj/
+*.user
+*.suo
+*.vs/
+
+# Visual Studio
+.vs/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# User-specific files
+*.user
+*.local
+*.env
+
+# Docker
+docker-compose.override.yml
+*.log

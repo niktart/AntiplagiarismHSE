@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: antiplagiarism
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  file-storing:
+    build: ./file-storing
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=antiplagiarism;Username=postgres;Password=postgres"
+    volumes:
+      - storing_files:/app/files
+
+  file-analysis:
+    build: ./file-analysis
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=antiplagiarism;Username=postgres;Password=postgres"
+
+  gateway:
+    build: ./gateway
+    depends_on:
+      - file-storing
+      - file-analysis
+
+    environment:
+      - FILE_STORING_URL=http://file-storing
+      - FILE_ANALYSIS_URL=http://file-analysis
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5000:80"
+
+volumes:
+  pgdata:
+  storing_files:

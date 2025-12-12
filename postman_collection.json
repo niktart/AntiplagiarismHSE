@@ -1,0 +1,48 @@
+{
+  "info": {
+    "name": "Antiplagiarism API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Submit work (gateway)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file"
+            },
+            {
+              "key": "studentId",
+              "value": "stu1",
+              "type": "text"
+            },
+            {
+              "key": "assignmentId",
+              "value": "hw1",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/works/submit",
+          "protocol": "http",
+          "host": [ "localhost" ],
+          "port": "5000",
+          "path": [ "works", "submit" ]
+        }
+      }
+    },
+    {
+      "name": "Get reports by assignment (analysis)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:5002/api/works/hw1/reports" }
+      }
+    }
+  ]
+}
