@@ -1,23 +1,33 @@
-# .NET build
+# Общие для .NET
 bin/
 obj/
 *.user
 *.suo
+*.cache
 *.vs/
+.vscode/
+*.swp
+*~
 
-# Visual Studio
-.vs/
+# Для Docker
+.dockerignore
+*.dockerignore
 
-# NuGet
-*.nupkg
-*.snupkg
+# Для зависимостей (NuGet)
 packages/
+.nuget/
+*.nupkg
 
-# User-specific files
-*.user
-*.local
-*.env
+# Для среды
+.env
+.env.local
+appsettings.Development.json
 
-# Docker
-docker-compose.override.yml
-*.log
+# Для баз данных
+*.db
+*.sqlite
+__pycache__/
+
+# Для системы
+.DS_Store
+Thumbs.db

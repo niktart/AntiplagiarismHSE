@@ -1,0 +1,3 @@
+Microservices architecture allows independent deployment.
+Each service has its own database and business logic.
+Services communicate through lightweight mechanisms.
